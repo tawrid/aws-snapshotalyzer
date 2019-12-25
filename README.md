@@ -15,4 +15,8 @@ This program uses 'snapshotty' profile to handle the connectivity with AWS CLI
 
 ## Running
 
-`pipenv run "python snapshotty/snapshotty.py"`
+`pipenv run "python snapshotty/snapshotty.py <command> <subcommand> <--project=PROJECT>"`
+
+*command* instances, volumes, snapshots
+*subcommand* is list, start, stop
+*project* is optional

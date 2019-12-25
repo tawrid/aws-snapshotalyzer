@@ -4,11 +4,17 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
+setuptools = "*"
+wheel = "*"
 
 [packages]
 boto3 = "*"
 ipython = "*"
 click = "*"
+setuptools = "*"
+bdist-wheel = "*"
+install = "*"
+wheel = {index = "p-lock",version = "*"}
 
 [requires]
 python_version = "3.7"
