@@ -4,7 +4,7 @@ setup(
     name="aws-snapshotalizer",
     version="0.1",
     author="Tawrid Hyder",
-    author_email="tawrid@gmail.com",
+    author_email="tawridnz@hotmail.com",
     summary="aws-snapshotalizer is a tool to manage the AWS instances and snapshots",
     license="GPLv3+",
     packages=['snapshotty'],
