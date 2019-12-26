@@ -89,9 +89,6 @@ def create_snapshots(project, force, instance, age):
     for i in instances:
         running_status = i.state['Name']
         try:
-            print("Instance {0} is stopping....".format(i.id))
-            i.stop()
-            i.wait_until_stopped()
             for v in i.volumes.all():
                 if has_pending_snapshot(v):
                     print("Snapshot for volume {0} is already in progress. Skipping...".format(v.id))
@@ -99,15 +96,18 @@ def create_snapshots(project, force, instance, age):
                 s_status = filter_snapshot(v, age)
                 if s_status:
                     try:
+                        print("Instance {0} is stopping....".format(i.id))
+                        i.stop()
+                        i.wait_until_stopped()
                         print("Creating snapshots for volume {0}".format(v.id))
                         v.create_snapshot(Description="Created by Snaphotty")
                         print("Snapshot created for volume {0}".format(v.id))
+                        if running_status == 'running':
+                            print("Instance {0} is starting....".format(i.id))
+                            i.start()
+                            i.wait_until_running()
                     except botocore.exceptions.ClientError as exp:
                         print("Error occured while creating snapshot for instance {0}".format(i.id) + str(exp))
-            if running_status == 'running':
-                print("Instance {0} is starting....".format(i.id))
-                i.start()
-                i.wait_until_running()
         except botocore.exceptions.WaiterError as e:
             print("Error occured while creating snapshot for instance {0}".format(i.id) + str(e))
         print("Jobs Done.")
